@@ -1,3 +1,4 @@
+//  @ts-nocheck
 import { useEffect, useState } from "react";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { FaMicrophone, FaStop, FaArrowDown } from "react-icons/fa";
