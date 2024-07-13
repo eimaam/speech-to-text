@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {
+  margin: 0 auto;
+  overflow: hidden;
+  color: rgb(13 60 38/1);
+  font-family: "Sora", sans-serif;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* App.css */
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.recordButton, .stopButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.recordButton:hover, .stopButton:hover {
+  background-color: #0056b3;
+}
+
+.recordButton svg, .stopButton svg {
+  margin-right: 10px;
+}
+
+.transcript {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  min-height: 200px;
+  overflow-y: auto;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  color: black;
+  text-align: left;
+  opacity: 0; /* Initially set opacity to 0 */
+  animation: fadeIn 2s ease forwards; /* Apply animation to gradually increase opacity */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.panel {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.panel button {
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  border: none;
+  background-color: grey;
+  cursor: pointer;
+}
+
+.panel button:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .panel {
+  display: block;
+}
+
+.speakerButton {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem
+}
+
