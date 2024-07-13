@@ -1,6 +1,8 @@
-//  @ts-nocheck
+// @ts-nocheck
 import { useEffect, useState } from "react";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 import { FaMicrophone, FaStop, FaArrowDown } from "react-icons/fa";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { HiMiniSpeakerWave, HiMiniSpeakerXMark } from "react-icons/hi2";
@@ -15,21 +17,22 @@ interface ISpeechSynthesisVoice {
 
 const DEFAULT_SAMPLE_TEXT = "Hi there! Welcome to SpeechMaster";
 
-const App = () => {
-  const { transcript, listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
+const App = (): JSX.Element => {
+  const { transcript, listening, browserSupportsSpeechRecognition } =
+    useSpeechRecognition();
   const { speak, speaking, cancel, voices } = useSpeechSynthesis();
 
   const [isListening, setIsListening] = useState<boolean>(false);
   const [showPanel, setShowPanel] = useState<boolean>(false);
-  const [waveform, setWaveform] = useState([]);
+  const [waveform, setWaveform] = useState<number[]>([]);
   const [voiceIndex, setVoiceIndex] = useState<number>(47);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const englishVoices: SpeechSynthesisVoice[] = voices.filter(
-    (voice: ISpeechSynthesisVoice) => voice.lang.toLowerCase().includes("en")
+  const englishVoices = voices.filter((voice: ISpeechSynthesisVoice) =>
+    voice.lang.toLowerCase().includes("en")
   );
 
-  const selectedVoice: ISpeechSynthesisVoice = englishVoices[voiceIndex];
+  const selectedVoice = englishVoices[voiceIndex];
 
   const startListening = () => {
     setIsListening(true);
@@ -64,7 +67,7 @@ const App = () => {
     }, 3000);
 
     let intervalId;
-    if (!listening) {
+    if (isListening) {
       intervalId = setInterval(() => {
         const newWaveform = Array.from(
           { length: 20 },
@@ -80,7 +83,8 @@ const App = () => {
   }, [isListening]);
 
   if (!browserSupportsSpeechRecognition) {
-    return window.alert("Your browser does not support speech recognition");
+    window.alert("Your browser does not support speech recognition");
+    return <div>Your browser does not support speech recognition</div>;
   }
 
   return (
@@ -93,7 +97,7 @@ const App = () => {
         <>
           <header className="w-full py-8 bg-blue-600 text-white">
             <h1 className="text-4xl font-bold">SpeechMaster</h1>
-            <p className="mt-2  !italic">
+            <p className="mt-2 !italic">
               speech-to-text and text-to-speech tool
             </p>
           </header>
@@ -118,6 +122,8 @@ const App = () => {
               <div className="mt-4">
                 {!listening ? (
                   <button
+                    type="button"
+                    title="Start Listening"
                     className="bg-blue-500 text-white rounded-full p-2 hover:bg-blue-600"
                     onClick={startListening}
                   >
@@ -125,6 +131,8 @@ const App = () => {
                   </button>
                 ) : (
                   <button
+                    type="button"
+                    title="Stop Listening"
                     className="bg-red-500 text-white rounded-full p-2 hover:bg-red-600"
                     onClick={stopListening}
                   >
@@ -139,7 +147,8 @@ const App = () => {
               <div className="w-full flex items-center justify-between p-4 bg-gray-50 border rounded">
                 {!speaking ? (
                   <button
-                  title="Start Speaking"
+                    type="button"
+                    title="Start Speaking"
                     onClick={initiateSpeech}
                     className="bg-green-500 text-white rounded-full p-2 hover:bg-green-600"
                   >
@@ -147,7 +156,8 @@ const App = () => {
                   </button>
                 ) : (
                   <button
-                  title="Stop Speaking"
+                    type="button"
+                    title="Stop Speaking"
                     onClick={cancel}
                     className="bg-red-500 text-white rounded-full p-2 hover:bg-red-600"
                   >
@@ -156,7 +166,7 @@ const App = () => {
                 )}
                 {selectedVoice?.name}
                 <button
-                title="Show Voice Selection Panel"
+                  title="Show Voice Selection Panel"
                   onClick={toggleVoiceSelectionPanel}
                   className="ml-4 bg-gray-300 text-gray-800 rounded-full p-2 hover:bg-gray-400"
                 >
@@ -167,7 +177,7 @@ const App = () => {
                 <div className="w-full bg-white border rounded mt-2 shadow-md">
                   {englishVoices.slice(0, 10).map((voice, index) => (
                     <button
-                    title="Voice Option"
+                      title="Voice Option"
                       key={index}
                       onClick={() => handleVoiceSelection(index)}
                       className="block w-full text-left p-2 hover:bg-gray-100"
